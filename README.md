@@ -1,7 +1,9 @@
 # APIs_Assignment2_FabioWeck
 
 Q1
+
 Get The Weather Using An API
+
 In this question, we ask you create a single web page that is completely self-contained (i.e. does not load any external JavaScript files) 
 and retrieve the current local weather using a free online service.  
 There are several free weather service providers available; 
@@ -13,10 +15,15 @@ just display the weather by updating HTML DOM elements).  Please make sure your 
 
 Q2.
 
-•	Setup a node-based web server 
-•	create different API that allow you to search staff information using staff name, id, salary. 
+•	Setup a node-based web server
+
+•	create different API that allow you to search staff information using staff name, id, salary.
+
 •	Write a function that handle the API response and display the data for the user
+
 •	Create an API that register new staff to your existing dataset or to a new file as backend storage. 
 Once new record is sent confirmation should be sent back from the server
+
 •	Create an API that will serve as default if wrong API request come to your web server.
+
 •	Use promise, async/await , import and export in this project
