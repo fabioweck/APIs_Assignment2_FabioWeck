@@ -1,0 +1,70 @@
+h1 {
+  color: rgb(70, 70, 70);
+  text-align: center;
+  width: 300px;
+  margin: auto;
+  padding: 40px;
+  background-color: rgb(194, 194, 177);
+}
+
+#navbar {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: lightgrey;
+  margin-bottom: 50px;
+}
+#navbar a {
+  text-decoration: none;
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(65, 65, 65);
+}
+
+main {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main a {
+  text-align: center;
+  margin: 10px 0px;
+  text-decoration: none;
+}
+main form {
+  font-size: 20px;
+}
+main table {
+  text-align: center;
+  font-size: 20px;
+  margin: 50px;
+}
+main table th {
+  background-color: rgb(194, 194, 177);
+  padding: 10px;
+}
+main table tr {
+  background-color: rgb(159, 117, 117);
+}
+main table tr:nth-child(even) {
+  background-color: #bca8a8;
+}
+main #form {
+  margin-top: 30px;
+  border: 2px solid rgb(149, 149, 149);
+  border-radius: 5px;
+  padding: 10px;
+}
+main div {
+  display: flex;
+  flex-direction: row;
+}
+
+footer {
+  font-size: 20px;
+  margin-top: 50px;
+  text-align: center;
+  font-style: italic;
+}/*# sourceMappingURL=css.css.map */

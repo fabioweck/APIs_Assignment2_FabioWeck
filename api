@@ -1,0 +1,213 @@
+const express = require('express');
+const api = express.Router();
+
+const fs = require('fs');
+
+const bodyParser = require("body-parser");
+api.use(bodyParser.urlencoded({ extended: false }));
+
+
+
+/*==================== JSON File =============================*/
+
+
+let obj;
+
+async function checkJsonFile ()
+{
+    
+    const exists = fs.existsSync('./static/staff.json'); //Checks the JSON availability
+    
+    if (exists) 
+    {
+
+        console.log('Loading staff file...');
+        const mydata = fs.readFileSync('./static/staff.json', 'utf8'); //Reads the file and parse it to 'obj'
+        obj = JSON.parse(mydata);
+    } 
+    
+    else //if unable to check JSON file, this 'else' condition creates a new empty object
+    {
+        console.log('Created new object');
+        obj = { user: [] };
+    }
+}
+
+/*========================== APIs ============================ */
+
+
+//Main page with index.html file
+api.get('/', function (req, res) 
+{                                               
+  console.log("GET to access homepage");
+  res.sendFile(__dirname + "/" + "index.html");
+})
+
+api.get('/weather', function (req, res) 
+{                                               
+  console.log("GET to access homepage");
+  res.sendFile(__dirname + '/' + 'weather.html');
+})
+
+//Add staff page with addStaff.html file
+api.get('/add-staff', function(req, res) 
+{
+    console.log("GET to access add-staff page");
+    res.sendFile(__dirname + "/" + "addStaff.html");
+})
+
+
+//API to add new entries to the JSON file 
+api.post('/staff', function(req, res) 
+{
+
+    console.log("POST requested to add a new user in the table:");
+    console.log(req.body);
+
+    const response = {
+        id: req.body.userID,
+        job: req.body.jobTitleName,
+        fn: req.body.firstName,
+        ln: req.body.lastName,
+        full: req.body.preferredFullName,
+        staff: req.body.staffID,
+        sal: req.body.salary,
+        region: req.body.region,
+        phone: req.body.phone,
+        mail: req.body.email
+    };
+
+    //This if statement checks if user missed any field before submitting the form
+    if (!response.id || !response.job || !response.fn || !response.ln || !response.full || !response.staff || !response.sal || !response.region || !response.phone || !response.mail) 
+    {
+  
+      let reply = 'Please complete all the fields to submit a new staff member';
+      res.send(`<p>${reply}</p>`);
+      console.log(reply);
+
+    }
+
+    //If all fields were filled, 'else' statement pushes all the data into the object
+    else 
+    {
+        obj.staff.push({
+        userId : req.body.userID,
+        jobTitleName : req.body.jobTitleName,
+        firstName : req.body.firstName,
+        lastName : req.body.lastName,
+        preferredFullName: req.body.preferredFullName,
+        staffID : req.body.staffID,
+        salary : req.body.salary,
+        region : req.body.region,
+        phoneNumber : req.body.phone,
+        emailAddress : req.body.email
+    });
+  
+    const data = JSON.stringify(obj, null, 2); //Stringify the object
+
+    fs.writeFile('./static/orders.json', data, function finished(err) //Writes the file with updated info
+      {
+          const reply = {
+          userIDd : req.body.userID,
+          firstName : req.body.firstName,
+          lastName : req.body.lastName,
+          status: 'Success: ',
+          msg: 'The new user was added!',
+      };
+
+      res.send(reply.firstName + ' ' + reply.lastName + '<br>' + reply.status + reply.msg + //Message to user when process is complete
+              '<br><a href="http://localhost:3051/">Back to homepage</a>');
+                console.log(reply);
+      });
+    }
+});
+
+
+//API to show raw JSON file and its content
+api.get('/staff', function (req, res)
+{
+  console.log("GET request to check JSON file");
+  res.sendFile(__dirname + "/" + "./static/staff.json");
+})
+
+
+//API to deliver object filtered by name
+api.get('/filterName', async (req, res) => {
+
+    console.log("GET request to filter staff table by name");
+    const firstName = req.query.firstName; //catches input to use as parameter to filter results
+    const filterName = obj.staff.filter(staffName => staffName.firstName === firstName);
+  
+    try 
+    {            
+      if(typeof filterName === 'object' && filterName.length !== 0) throw filterName; //if condition checks if the object is valid and field is not empty
+      if(filterName.length === 0) throw 'Error - Unable to find this user';
+    } 
+    
+    catch (object) //catch delivers object or message thrown
+    {
+        console.log(object);
+        res.send(object);
+    }  
+});
+
+
+//API to deliver object filtered by staff ID
+api.get('/filterID', async (req, res) => {
+
+    console.log("GET request to filter staff table by Staff ID");
+    const staffID = req.query.staffID;
+    const filterStaff = obj.staff.filter(staff => staff.staffID === staffID); 
+
+    try 
+    {
+              
+        if(typeof filterStaff === 'object' && filterStaff.length !== 0) throw filterStaff;
+        if(filterStaff.length === 0) throw 'Error - Unable to find this user';
+
+    } 
+
+    catch (object) 
+    {
+        console.log(object);
+        res.send(object);
+    }
+
+});
+
+
+//API to deliver object filtered by salary
+api.get('/filterSalary', async (req, res) => {
+
+    console.log("GET request to filter staff table by Staff ID");
+    const salary = req.query.salary;
+    const filterSalary = obj.staff.filter(staffSalary => staffSalary.salary === salary);
+
+    try 
+    {
+             
+        if(typeof filterSalary === 'object' && req.query.salary.trim() !== "") throw filterSalary;
+        if(filterSalary.length === 0) throw 'Error - Unable to find this user';
+
+    } 
+
+    catch (object) 
+    {
+        console.log(object)
+        res.send(object);
+    }
+
+});
+
+//API to acess files (css, js and JSON)  
+api.use("/static", express.static('./static/'));
+
+checkJsonFile();
+
+//default message when a page is unreachable
+api.use((req, res, next) => {
+    res.status(404).send('Error - Unable to display content. Please return to <a href="http://localhost:3051/">homepage</a>'); //Error message to user when a page is unreachable
+});
+
+
+module.exports = api; //exports APIs to run on server

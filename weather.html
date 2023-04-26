@@ -1,0 +1,77 @@
+<!--
+    Fabio Augusto Weck - 441977
+    SODV1201 - Web Programming - 23JANMNTR1
+    Assingment 2 - Advanced JS
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Assignment 2 - Get weather</title>
+    </head>
+    <style>
+        body{
+            background-color: rgb(213, 233, 251);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        h1, h2{
+            text-align: center;
+        }
+        main{
+            margin: auto;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #display{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        img{
+            margin: 40px 0px 10px 0px;
+            width: 150px;
+        }
+
+        footer{
+            text-align: center;
+            font-style: italic;
+            margin-top: 50px;
+        }
+        a{
+            margin: 30px;
+            text-align: center;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+    </style>
+    <body>
+        
+        <header>
+            <h1>Getting weather conditions with API</h1>
+        </header>
+
+        <main>
+
+            <h2>Please enter the name of the city</h2>
+            <input type="text" id="city">
+            <button onclick="searchAndGet();">Search</button>
+            <div id="display"></div>
+            <a href="http://localhost:3051/">Back to homepage</a>
+            
+        </main>
+
+        <footer>
+            <p>&copyFabio Augusto Weck. 2023.</p> 
+            <p>All Rights reserved.</p>
+        </footer>
+
+        <script src="./static/js/weather.js"></script> 
+
+    </body>
+</html>

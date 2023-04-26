@@ -1,0 +1,65 @@
+<!--
+    Fabio Augusto Weck - 441977
+    SODV1201 - Web Programming - 23JANMNTR1
+    Assingment 2 - Advanced JS
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./static/css/css.css" rel="stylesheet"/>
+        <title>A2 - Fabio Weck</title>
+    </head>
+
+    <body>
+
+        <header>
+
+            <div id="navbar">
+                <a href="http://localhost:3051/add-staff">Add new member</a>
+                <a href="http://localhost:3051/staff">Check JSON file</a>
+                <a href="http://localhost:3051/weather">Check weather conditions</a>
+            </div><!--end of navbar-->
+
+            <h1 id="title">STAFF TABLE</h1>
+
+        </header><!--end of header-->
+
+        <main>
+
+            <h2>Search:</h2>
+
+            <div>
+                <input id="name" name="firstName" type="text" placeholder="By First Name"/><br/>
+                <button id="myBtn" onclick="displayByName()">Go</button>
+            </div>
+
+            <div>
+                <input id="staffid" name="staffID" type="text" placeholder="By Staff ID"/><br/>
+                <button id="myBtn" onclick="displayByID()">Go</button>
+            </div>
+
+            <div>
+                <input id="salary" name="salary" type="text" placeholder="By Salary"/><br/>
+                <button id="myBtn" onclick="displayBySalary()">Go</button>
+            </div>
+            
+            <a href="http://localhost:3051/">RESET</a>
+                
+            <div id="displayStaff"></div><!--end of displayStaff-->
+  
+        </main><!--end of main-->
+
+        <footer>
+            <p>&copyFabio Augusto Weck. 2023.</p> 
+            <p>All Rights reserved.</p>
+        </footer><!--end of footer-->
+
+        <script src="./static/js/index.js"></script>
+
+    </body><!--end of body-->
+
+</html><!--end of html-->
